@@ -1,0 +1,581 @@
+@prefix : <http://www.example.com/ontologies/test/cim-iec#> .
+@prefix cim: <http://iec.ch/TC57/2013/CIM-schema-cim16#> .
+@prefix iec: <http://iec.ch/TC57/61850-7-4/2010#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.example.com/ontologies/test/cim-iec#> .
+
+<http://www.example.com/ontologies/> rdf:type owl:Ontology .
+
+#################################################################
+#    Classes
+#################################################################
+
+cim:Breaker rdf:type owl:Class ;
+            owl:equivalentClass iec:XCBR .
+
+cim:ElectricalSubstation rdf:type owl:Class ;
+                         owl:equivalentClass iec:SS .
+
+cim:PowerTransformer rdf:type owl:Class ;
+                     owl:equivalentClass iec:TCTR , iec:TVTR .
+
+cim:Disconnector rdf:type owl:Class ;
+                 owl:equivalentClass iec:XSWI .
+
+cim:VoltageLevel rdf:type owl:Class .
+
+cim:GeneratingUnit rdf:type owl:Class .
+
+cim:Measurement rdf:type owl:Class ;
+                owl:equivalentClass iec:MMXU .
+
+cim:BusbarSection rdf:type owl:Class ;
+                  owl:equivalentClass iec:CBBS .
+
+cim:EnergyConsumer rdf:type owl:Class ;
+                   owl:equivalentClass iec:ZCON .
+
+cim:CommunicationEquipment rdf:type owl:Class .
+
+cim:ProtectionEquipment rdf:type owl:Class ;
+                        owl:equivalentClass iec:PTOC , iec:PDIS .
+
+cim:SynchronousMachine rdf:type owl:Class ;
+                       owl:equivalentClass iec:GEN .
+
+cim:AsynchronousMachine rdf:type owl:Class ;
+                        owl:equivalentClass iec:ASYNC .
+
+cim:Meter rdf:type owl:Class ;
+          owl:equivalentClass iec:MMTR .
+
+cim:Network rdf:type owl:Class ;
+            owl:equivalentClass iec:LN .
+
+iec:SS rdf:type owl:Class .
+
+iec:TCTR rdf:type owl:Class .
+
+iec:TVTR rdf:type owl:Class .
+
+iec:XCBR rdf:type owl:Class .
+
+iec:XSWI rdf:type owl:Class .
+
+iec:MMXU rdf:type owl:Class .
+
+iec:CBBS rdf:type owl:Class .
+
+iec:ZCON rdf:type owl:Class .
+
+iec:PTOC rdf:type owl:Class .
+
+iec:PDIS rdf:type owl:Class .
+
+iec:GEN rdf:type owl:Class .
+
+iec:ASYNC rdf:type owl:Class .
+
+iec:MMTR rdf:type owl:Class .
+
+iec:LN rdf:type owl:Class .
+
+#################################################################
+#    Properties
+#################################################################
+
+# ElectricalSubstation has Equipment
+cim:hasBreaker rdf:type owl:ObjectProperty ;
+               rdfs:domain cim:ElectricalSubstation ;
+               rdfs:range cim:Breaker .
+
+cim:hasPowerTransformer rdf:type owl:ObjectProperty ;
+                        rdfs:domain cim:ElectricalSubstation ;
+                        rdfs:range cim:PowerTransformer .
+
+cim:hasDisconnector rdf:type owl:ObjectProperty ;
+                    rdfs:domain cim:ElectricalSubstation ;
+                    rdfs:range cim:Disconnector .
+
+cim:hasGeneratingUnit rdf:type owl:ObjectProperty ;
+                      rdfs:domain cim:ElectricalSubstation ;
+                      rdfs:range cim:GeneratingUnit .
+
+cim:hasMeasurement rdf:type owl:ObjectProperty ;
+                   rdfs:domain cim:ElectricalSubstation ;
+                   rdfs:range cim:Measurement .
+
+cim:hasBusbarSection rdf:type owl:ObjectProperty ;
+                     rdfs:domain cim:ElectricalSubstation ;
+                     rdfs:range cim:BusbarSection .
+
+cim:hasEnergyConsumer rdf:type owl:ObjectProperty ;
+                      rdfs:domain cim:ElectricalSubstation ;
+                      rdfs:range cim:EnergyConsumer .
+
+cim:hasCommunicationEquipment rdf:type owl:ObjectProperty ;
+                              rdfs:domain cim:ElectricalSubstation ;
+                              rdfs:range cim:CommunicationEquipment .
+
+cim:hasProtectionEquipment rdf:type owl:ObjectProperty ;
+                           rdfs:domain cim:ElectricalSubstation ;
+                           rdfs:range cim:ProtectionEquipment .
+
+cim:hasSynchronousMachine rdf:type owl:ObjectProperty ;
+                          rdfs:domain cim:ElectricalSubstation ;
+                          rdfs:range cim:SynchronousMachine .
+
+cim:hasAsynchronousMachine rdf:type owl:ObjectProperty ;
+                           rdfs:domain cim:ElectricalSubstation ;
+                           rdfs:range cim:AsynchronousMachine .
+
+cim:hasMeter rdf:type owl:ObjectProperty ;
+             rdfs:domain cim:ElectricalSubstation ;
+             rdfs:range cim:Meter .
+
+cim:hasNetwork rdf:type owl:ObjectProperty ;
+               rdfs:domain cim:ElectricalSubstation ;
+               rdfs:range cim:Network .
+
+## BaseVoltage and its properties
+cim:BaseVoltage rdf:type owl:Class .
+cim:nominalVoltage rdf:type owl:DatatypeProperty ;
+                   rdfs:domain cim:BaseVoltage ;
+                   rdfs:range xsd:float .
+
+# Terminal and its properties
+cim:Terminal rdf:type owl:Class .
+cim:sequenceNumber rdf:type owl:DatatypeProperty ;
+                   rdfs:domain cim:Terminal ;
+                   rdfs:range xsd:int .
+
+# ConductingEquipment and ConnectivityNode
+cim:ConductingEquipment rdf:type owl:Class ;
+                        rdfs:subClassOf cim:Equipment .
+cim:ConnectivityNode rdf:type owl:Class .
+
+# Linking Terminal with ConductingEquipment and ConnectivityNode
+cim:Terminal rdfs:seeAlso cim:ConductingEquipment .
+cim:Terminal rdfs:seeAlso cim:ConnectivityNode .
+
+# ACLineSegment
+cim:ACLineSegment rdf:type owl:Class ;
+                  rdfs:subClassOf cim:Conductor .
+
+# PowerTransformer and PowerTransformerEnd
+cim:PowerTransformer rdf:type owl:Class ;
+                     rdfs:subClassOf cim:Equipment .
+cim:PowerTransformerEnd rdf:type owl:Class ;
+                        rdfs:subClassOf cim:TransformerEnd .
+
+# EnergyConsumer
+cim:EnergyConsumer rdf:type owl:Class ;
+                   rdfs:subClassOf cim:ConductingEquipment .
+
+# Switch
+cim:Switch rdf:type owl:Class ;
+           rdfs:subClassOf cim:ConductingEquipment .
+
+# Connectivity Information
+cim:connectsTo rdf:type owl:ObjectProperty ;
+               rdfs:domain cim:Terminal ;
+               rdfs:range cim:ConnectivityNode .
+
+# ConductingEquipment hasTerminals
+cim:hasTerminal rdf:type owl:ObjectProperty ;
+                rdfs:domain cim:ConductingEquipment ;
+                rdfs:range cim:Terminal .
+
+# PowerTransformer hasTransformerEnd
+cim:hasTransformerEnd rdf:type owl:ObjectProperty ;
+                      rdfs:domain cim:PowerTransformer ;
+                      rdfs:range cim:PowerTransformerEnd .
+
+# VoltageLevel hasBaseVoltage
+cim:hasBaseVoltage rdf:type owl:ObjectProperty ;
+                   rdfs:domain cim:VoltageLevel ;
+                   rdfs:range cim:BaseVoltage .
+
+# GeneratingUnit hasSynchronousMachine
+cim:hasSynchronousMachine rdf:type owl:ObjectProperty ;
+                          rdfs:domain cim:GeneratingUnit ;
+                          rdfs:range cim:SynchronousMachine .
+
+#################################################################
+#    Data properties
+#################################################################
+
+# Breaker properties
+cim:breakerStatus rdf:type owl:DatatypeProperty ;
+                  rdfs:domain cim:Breaker ;
+                  rdfs:range xsd:string .
+
+cim:type rdf:type owl:DatatypeProperty ;
+         rdfs:domain cim:Breaker ;
+         rdfs:range xsd:string .
+
+# ElectricalSubstation properties
+cim:identification rdf:type owl:DatatypeProperty ;
+                   rdfs:domain cim:ElectricalSubstation ;
+                   rdfs:range xsd:string .
+
+# PowerTransformer properties
+cim:model rdf:type owl:DatatypeProperty ;
+          rdfs:domain cim:PowerTransformer ;
+          rdfs:range xsd:string .
+
+cim:nominalVoltage rdf:type owl:DatatypeProperty ;
+                   rdfs:domain cim:PowerTransformer ;
+                   rdfs:range xsd:float .
+
+# Disconnector properties
+cim:disconnectorStatus rdf:type owl:DatatypeProperty ;
+                       rdfs:domain cim:Disconnector ;
+                       rdfs:range xsd:string .
+
+# VoltageLevel properties
+cim:nominalVoltage rdf:type owl:DatatypeProperty ;
+                   rdfs:domain cim:VoltageLevel ;
+                   rdfs:range xsd:float .
+
+# GeneratingUnit properties
+cim:maximumOperatingPower rdf:type owl:DatatypeProperty ;
+                          rdfs:domain cim:GeneratingUnit ;
+                          rdfs:range xsd:float .
+
+cim:minimumOperatingPower rdf:type owl:DatatypeProperty ;
+                          rdfs:domain cim:GeneratingUnit ;
+                          rdfs:range xsd:float .
+
+# Measurement properties
+cim:measurementValue rdf:type owl:DatatypeProperty ;
+                     rdfs:domain cim:Measurement ;
+                     rdfs:range xsd:float .
+
+cim:measurementType rdf:type owl:DatatypeProperty ;
+                    rdfs:domain cim:Measurement ;
+                    rdfs:range xsd:string .
+
+# BusbarSection properties
+cim:identification rdf:type owl:DatatypeProperty ;
+                   rdfs:domain cim:BusbarSection ;
+                   rdfs:range xsd:string .
+
+# EnergyConsumer properties
+cim:energyConsumption rdf:type owl:DatatypeProperty ;
+                      rdfs:domain cim:EnergyConsumer ;
+                      rdfs:range xsd:float .
+
+# CommunicationEquipment properties
+cim:communicationProtocol rdf:type owl:DatatypeProperty ;
+                          rdfs:domain cim:CommunicationEquipment ;
+                          rdfs:range xsd:string .
+
+cim:dataRate rdf:type owl:DatatypeProperty ;
+             rdfs:domain cim:CommunicationEquipment ;
+             rdfs:range xsd:float .
+
+# ProtectionEquipment properties
+cim:protectionType rdf:type owl:DatatypeProperty ;
+                   rdfs:domain cim:ProtectionEquipment ;
+                   rdfs:range xsd:string .
+
+# SynchronousMachine properties
+cim:powerOutput rdf:type owl:DatatypeProperty ;
+                rdfs:domain cim:SynchronousMachine ;
+                rdfs:range xsd:float .
+
+# AsynchronousMachine properties
+cim:powerOutput rdf:type owl:DatatypeProperty ;
+                rdfs:domain cim:AsynchronousMachine ;
+                rdfs:range xsd:float .
+
+# Meter properties
+cim:meterReading rdf:type owl:DatatypeProperty ;
+                 rdfs:domain cim:Meter ;
+                 rdfs:range xsd:float .
+
+# Network properties
+cim:networkId rdf:type owl:DatatypeProperty ;
+              rdfs:domain cim:Network ;
+              rdfs:range xsd:string .
+
+#################################################################
+#    Cardinality Restrictions
+#################################################################
+
+# A Breaker must have exactly one breakerStatus
+[] rdf:type owl:Restriction ;
+   owl:onProperty cim:breakerStatus ;
+   owl:cardinality "1"^^xsd:nonNegativeInteger ;
+   owl:onClass cim:Breaker .
+
+# An ElectricalSubstation must have at least one VoltageLevel
+[] rdf:type owl:Restriction ;
+   owl:onProperty cim:VoltageLevel ;
+   owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+   owl:onClass cim:ElectricalSubstation .
+
+# A GeneratingUnit must have at most one maximumOperatingPower
+[] rdf:type owl:Restriction ;
+   owl:onProperty cim:maximumOperatingPower ;
+   owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+   owl:onClass cim:GeneratingUnit .
+
+# A PowerTransformer must have at least one PowerTransformerEnd
+[] rdf:type owl:Restriction ;
+   owl:onProperty cim:PowerTransformerEnd ;
+   owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+   owl:onClass cim:PowerTransformer .
+
+#################################################################
+#    Individuals
+#################################################################
+
+### ElectricalSubstation Instances ###
+:substation1 rdf:type cim:ElectricalSubstation ;
+             cim:identification "Substation 1" ;
+             cim:hasBaseVoltage :voltageLevel1 ;
+             cim:hasBreaker :breaker3 ;
+             cim:hasPowerTransformer :transformer1 ;
+             cim:hasDisconnector :disconnector1 ;
+             cim:hasGeneratingUnit :genUnit1 ;
+             cim:hasBusbarSection :busbar1 ;
+             cim:hasEnergyConsumer :consumer1 ;
+             cim:hasCommunicationEquipment :commEquipment1 ;
+             cim:hasProtectionEquipment :protection1 ;
+             cim:hasSynchronousMachine :syncMachine1 ;
+             cim:hasAsynchronousMachine :asyncMachine1 ;
+             cim:hasMeter :meter1 ;
+             cim:hasNetwork :network1 .
+
+:substation2 rdf:type cim:ElectricalSubstation ;
+             cim:identification "Substation 2" ;
+             cim:hasBaseVoltage :voltageLevel2 ;
+             cim:hasBreaker :breaker1 ;
+             cim:hasPowerTransformer :transformer2 ;
+             cim:hasDisconnector :disconnector2 ;
+             cim:hasGeneratingUnit :genUnit2 ;
+             cim:hasBusbarSection :busbar2 ;
+             cim:hasEnergyConsumer :consumer2 ;
+             cim:hasCommunicationEquipment :commEquipment2 ;
+             cim:hasProtectionEquipment :protection2 ;
+             cim:hasSynchronousMachine :syncMachine2 ;
+             cim:hasAsynchronousMachine :asyncMachine2 ;
+             cim:hasMeter :meter2 ;
+             cim:hasNetwork :network2 .
+
+:substation3 rdf:type cim:ElectricalSubstation ;
+             cim:identification "Substation 3" ;
+             cim:hasBaseVoltage :voltageLevel3 ;
+             cim:hasBreaker :breaker2 ;
+             cim:hasPowerTransformer :transformer3 ;
+             cim:hasDisconnector :disconnector3 ;
+             cim:hasGeneratingUnit :genUnit3 ;
+             cim:hasBusbarSection :busbar3 ;
+             cim:hasEnergyConsumer :consumer3 ;
+             cim:hasCommunicationEquipment :commEquipment3 ;
+             cim:hasProtectionEquipment :protection3 ;
+             cim:hasSynchronousMachine :syncMachine3 ;
+             cim:hasAsynchronousMachine :asyncMachine3 ;
+             cim:hasMeter :meter3 ;
+             cim:hasNetwork :network3 .
+
+### VoltageLevel Instances ###
+:voltageLevel1 rdf:type cim:VoltageLevel ;
+               cim:nominalVoltage 110.0 .
+
+:voltageLevel2 rdf:type cim:VoltageLevel ;
+               cim:nominalVoltage 220.0 .
+
+:voltageLevel3 rdf:type cim:VoltageLevel ;
+               cim:nominalVoltage 330.0 .
+
+### PowerTransformer Instances ###
+:transformer1 rdf:type cim:PowerTransformer ;
+              cim:model "Model A" ;
+              cim:nominalVoltage 110.0 ;
+              cim:hasTransformerEnd :transformerEnd1 .
+
+:transformer2 rdf:type cim:PowerTransformer ;
+              cim:model "Model B" ;
+              cim:nominalVoltage 220.0 ;
+              cim:hasTransformerEnd :transformerEnd2 .
+
+:transformer3 rdf:type cim:PowerTransformer ;
+              cim:model "Model C" ;
+              cim:nominalVoltage 330.0 ;
+              cim:hasTransformerEnd :transformerEnd3 .
+
+### PowerTransformerEnd Instances ###
+:transformerEnd1 rdf:type cim:PowerTransformerEnd .
+:transformerEnd2 rdf:type cim:PowerTransformerEnd .
+:transformerEnd3 rdf:type cim:PowerTransformerEnd .
+
+### Breaker Instances ###
+:breaker1 rdf:type cim:Breaker ;
+          cim:breakerStatus "closed" ;
+          cim:type "Type A" .
+
+:breaker2 rdf:type cim:Breaker ;
+          cim:breakerStatus "open" ;
+          cim:type "Type B" .
+
+:breaker3 rdf:type cim:Breaker ;
+          cim:breakerStatus "closed" ;
+          cim:type "Type C" .
+
+### Disconnector Instances ###
+:disconnector1 rdf:type cim:Disconnector ;
+               cim:disconnectorStatus "open" .
+
+:disconnector2 rdf:type cim:Disconnector ;
+               cim:disconnectorStatus "closed" .
+
+:disconnector3 rdf:type cim:Disconnector ;
+               cim:disconnectorStatus "open" .
+
+### GeneratingUnit Instances ###
+:genUnit1 rdf:type cim:GeneratingUnit ;
+          cim:maximumOperatingPower 500.0 ;
+          cim:minimumOperatingPower 100.0 .
+
+:genUnit2 rdf:type cim:GeneratingUnit ;
+          cim:maximumOperatingPower 600.0 ;
+          cim:minimumOperatingPower 150.0 .
+
+:genUnit3 rdf:type cim:GeneratingUnit ;
+          cim:maximumOperatingPower 700.0 ;
+          cim:minimumOperatingPower 200.0 .
+
+### Measurement Instances ###
+:measurement1 rdf:type cim:Measurement ;
+              cim:measurementValue 12.5 ;
+              cim:measurementType "Voltage" .
+
+:measurement2 rdf:type cim:Measurement ;
+              cim:measurementValue 15.0 ;
+              cim:measurementType "Current" .
+
+:measurement3 rdf:type cim:Measurement ;
+              cim:measurementValue 10.0 ;
+              cim:measurementType "Power" .
+
+:measurement4 rdf:type cim:Measurement ;
+              cim:measurementValue 9.5 ;
+              cim:measurementType "Voltage" .
+
+:measurement5 rdf:type cim:Measurement ;
+              cim:measurementValue 8.2 ;
+              cim:measurementType "Current" .
+
+:measurement6 rdf:type cim:Measurement ;
+              cim:measurementValue 18.3 ;
+              cim:measurementType "Voltage" .
+
+:measurement7 rdf:type cim:Measurement ;
+              cim:measurementValue 20.7 ;
+              cim:measurementType "Current" .
+
+:measurement8 rdf:type cim:Measurement ;
+              cim:measurementValue 14.8 ;
+              cim:measurementType "Power" .
+
+:measurement9 rdf:type cim:Measurement ;
+              cim:measurementValue 11.6 ;
+              cim:measurementType "Voltage" .
+
+:measurement10 rdf:type cim:Measurement ;
+               cim:measurementValue 16.4 ;
+               cim:measurementType "Power" .
+
+# Example BusbarSections with Measurements
+:busbar1 rdf:type cim:BusbarSection ;
+         cim:identification "Busbar 1" ;
+         cim:hasMeasurement :measurement1, :measurement4, :measurement7 .
+
+:busbar2 rdf:type cim:BusbarSection ;
+         cim:identification "Busbar 2" ;
+         cim:hasMeasurement :measurement2, :measurement5, :measurement8 .
+
+:busbar3 rdf:type cim:BusbarSection ;
+         cim:identification "Busbar 3" ;
+         cim:hasMeasurement :measurement3, :measurement6, :measurement9, :measurement10 .
+
+
+### EnergyConsumer Instances ###
+:consumer1 rdf:type cim:EnergyConsumer ;
+           cim:energyConsumption 1500.0 .
+
+:consumer2 rdf:type cim:EnergyConsumer ;
+           cim:energyConsumption 2000.0 .
+
+:consumer3 rdf:type cim:EnergyConsumer ;
+           cim:energyConsumption 2500.0 .
+
+### CommunicationEquipment Instances ###
+:commEquipment1 rdf:type cim:CommunicationEquipment ;
+                cim:communicationProtocol "Protocol A" ;
+                cim:dataRate 1000.0 .
+
+:commEquipment2 rdf:type cim:CommunicationEquipment ;
+                cim:communicationProtocol "Protocol B" ;
+                cim:dataRate 2000.0 .
+
+:commEquipment3 rdf:type cim:CommunicationEquipment ;
+                cim:communicationProtocol "Protocol C" ;
+                cim:dataRate 3000.0 .
+
+### ProtectionEquipment Instances ###
+:protection1 rdf:type cim:ProtectionEquipment ;
+             cim:protectionType "Overcurrent" .
+
+:protection2 rdf:type cim:ProtectionEquipment ;
+             cim:protectionType "Undervoltage" .
+
+:protection3 rdf:type cim:ProtectionEquipment ;
+             cim:protectionType "Overvoltage" .
+
+### SynchronousMachine Instances ###
+:syncMachine1 rdf:type cim:SynchronousMachine ;
+              cim:powerOutput 200.0 .
+
+:syncMachine2 rdf:type cim:SynchronousMachine ;
+              cim:powerOutput 250.0 .
+
+:syncMachine3 rdf:type cim:SynchronousMachine ;
+              cim:powerOutput 300.0 .
+
+### AsynchronousMachine Instances ###
+:asyncMachine1 rdf:type cim:AsynchronousMachine ;
+               cim:powerOutput 150.0 .
+
+:asyncMachine2 rdf:type cim:AsynchronousMachine ;
+               cim:powerOutput 175.0 .
+
+:asyncMachine3 rdf:type cim:AsynchronousMachine ;
+               cim:powerOutput 200.0 .
+
+### Meter Instances ###
+:meter1 rdf:type cim:Meter ;
+        cim:meterReading 12345.0 .
+
+:meter2 rdf:type cim:Meter ;
+        cim:meterReading 23456.0 .
+
+:meter3 rdf:type cim:Meter ;
+        cim:meterReading 34567.0 .
+
+### Network Instances ###
+:network1 rdf:type cim:Network ;
+          cim:networkId "Network A" .
+
+:network2 rdf:type cim:Network ;
+          cim:networkId "Network B" .
+
+:network3 rdf:type cim:Network ;
+          cim:networkId "Network C" .
